@@ -177,4 +177,31 @@
 
     <script src="js/script.js"></script>
 </body>
+<script>
+    // Al cargar la página de inicio, si viene con un anclaje, hace scroll suave
+    window.addEventListener('DOMContentLoaded', () => {
+        if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                // Pequeño delay para dejar que el navegador renderice antes de deslizar
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+    });
+
+    // Forzar scroll suave interno en todos los enlaces que vuelvan al home
+    document.querySelectorAll('a[href^="index.html"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            // Si solo es "index.html" y estás en el index, sube suavemente al inicio
+            if (href === 'index.html' && window.location.pathname.endsWith('index.html')) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+</script>
 </html>
