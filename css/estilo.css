@@ -981,3 +981,6 @@ img {
     transform: scale(1.1) !important;
     background-color: #ffffff !important;
 }
+html {
+    scroll-behavior: smooth;
+}
