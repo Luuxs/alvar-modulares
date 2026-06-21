@@ -571,7 +571,16 @@ img {
 /* ==========================================================================
    10. CONTROL RESPONSIVO COMPLETO
    ========================================================================== */
+/* ===================================================
+   RESPONSIVE DESIGN ACTUALIZADO (MÓVILES Y TABLETS)
+   =================================================== */
+
+/* --- TABLETS (Hasta 992px) --- */
 @media (max-width: 992px) {
+    /* Soporte inteligente para infinitas fotos en tablets */
+    .projects-page .projects-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; 
+    }
     .projects-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-content h1 { font-size: 48px; }
     .concept-content { grid-template-columns: 1fr; gap: 40px; }
@@ -579,9 +588,30 @@ img {
     .footer-right { align-items: flex-start; }
 }
 
+/* --- CELULARES (Hasta 768px) --- */
 @media (max-width: 768px) {
     .navbar { padding: 20px 4%; }
     .nav-links, .nav-cta { display: none; } /* Oculta menú en móviles */
+    
+    /* En celulares, las fotos se adaptan solas en una columna limpia */
+    .projects-page .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+        gap: 15px !important;
+    }
+    /* Evita que tus fotos de 260px se estiren feo en pantallas táctiles */
+    .projects-page .project-card {
+        height: 240px !important;
+    }
+    /* Pone la Ficha de Ingeniería debajo del texto */
+    .projects-page .project-info-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+    /* Reduce el título principal para que entre en el celular */
+    .projects-header h2 {
+        font-size: 32px !important;
+    }
+
     .projects-grid { grid-template-columns: 1fr; }
     .hero-content h1 { font-size: 36px; }
     .concept-left h2 { font-size: 30px; }
