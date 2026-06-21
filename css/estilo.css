@@ -982,5 +982,5 @@ img {
     background-color: #ffffff !important;
 }
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth !important;
 }
