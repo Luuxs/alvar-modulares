@@ -1,0 +1,983 @@
+/* ==========================================================================
+   1. VARIABLES DE MARCA - MODO CLARO PREMIUM (FIEL A TU EJEMPLO)
+   ========================================================================== */
+:root {
+    /* Paleta Cromática del Manual de Identidad de ALVAR */
+    --color-azul-principal: #0061A5;  /* Azul corporativo base (C:94 M:64 Y:6) */
+    --color-verde-alvar:     #86C326;  /* Verde del lado izquierdo (C:52 M:0 Y:100) */
+    --color-celeste-hover:   #0090E0;  /* Celeste brillante para interacciones */
+    
+    /* Configuración de Luces y Fondos Claros (Como tu captura) */
+    --color-bg-light:        #f9f6f0;  /* Fondo hueso/crema suave de la web */
+    --color-bg-card:         #ffffff;  /* Tarjetas blancas puras que flotan encima */
+    --color-text-dark:       #111111;  /* Títulos y textos principales en negro */
+    --color-text-muted:      #555555;  /* Párrafos y descripciones en gris legible */
+    
+    /* Fuentes Tipográficas */
+    --font-headings: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ==========================================================================
+   2. REINICIO DE ESTILOS & AJUSTES GLOBALES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--color-bg-light);
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-light);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   3. MOTOR DE ANIMACIÓN POR SCROLL (JS INTERSECTION OBSERVER)
+   ========================================================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-reveal {
+    opacity: 0;
+    transform: scale(0.98) translateY(40px);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fade-in-reveal.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   4. BARRA DE NAVEGACIÓN (NAVBAR INTEGRADA EN OSCURO)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 6%;
+    background-color: #ffffff !important; /* Forzamos blanco puro en todas las páginas */
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04); /* Añade una sombra sutil premium para separar del fondo */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    font-family: var(--font-headings);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    color: var(--color-text-dark);
+}
+
+.logo span {
+    font-size: 11px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--color-azul-principal); /* Tu azul corporativo en el logo */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--color-text-dark);
+}
+
+/* Línea sutil debajo del link activo en tu azul de marca */
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-azul-principal);
+}
+
+.btn-call {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-dark);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 10px 22px;
+    border-radius: 50px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    font-weight: 500;
+}
+
+.btn-call:hover {
+    background-color: var(--color-text-dark);
+    border-color: var(--color-text-dark);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   5. SECCIÓN PORTADA (HERO CON CONTRASTE ADAPTADO)
+   ========================================================================== */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 6%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35)), 
+                      url('../img/inicio.jpg'); /* Ruta corregida para tu estructura */
+    background-size: cover;
+    background-position: center;
+}
+.hero-content {
+    max-width: 800px;
+    z-index: 2;
+}
+
+.hero-content .subtitle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.hero-content h1 {
+    font-family: var(--font-headings);
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: #ffffff;
+    margin-bottom: 35px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.btn-discover {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 6px;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.btn-discover .arrow {
+    transition: transform 0.3s;
+}
+
+.btn-discover:hover {
+    color: var(--color-verde-alvar);
+    border-color: var(--color-verde-alvar);
+}
+
+.btn-discover:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   6. SECCIÓN MISIÓN Y VISIÓN (TARJETAS BLANCAS FLOTANTES)
+   ========================================================================== */
+.services {
+    padding: 120px 6% 80px 6%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background-color: var(--color-bg-card); /* Blanco puro flotante */
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 55px 45px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02); /* Sombra sutil premium */
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 97, 165, 0.06); /* Destello sutil azul */
+}
+
+.service-icon {
+    width: 46px;
+    height: 46px;
+    color: var(--color-azul-principal); /* Iconos en tu azul real */
+    margin-bottom: 10px;
+}
+
+.service-text h3 {
+    font-family: var(--font-headings);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+}
+
+.service-text p {
+    color: var(--color-text-muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   7. SECCIÓN MANIFIESTO OPERATIVO (TEXTOS LIMPIOS Y AMPLIOS)
+   ========================================================================== */
+.concept {
+    padding: 100px 6%;
+    background-color: rgba(0, 0, 0, 0.015); /* Contraste sutil */
+    border-top: 1px solid rgba(0,0,0,0.02);
+    border-bottom: 1px solid rgba(0,0,0,0.02);
+}
+
+.concept-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.concept-content {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.concept-left h2 {
+    font-family: var(--font-headings);
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text-dark);
+    letter-spacing: -1.5px;
+}
+
+.concept-right p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+/* Imagen grande con bordes estilizados */
+.reveal-img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+}
+
+/* ==========================================================================
+   8. PORTAFOLIO DE PROYECTOS (TARJETAS INTEGRADAS AL NUEVO LOOK)
+   ========================================================================== */
+.projects {
+    padding: 120px 6%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.projects-header {
+    margin-bottom: 60px;
+}
+
+.projects-header h2 {
+    font-family: var(--font-headings);
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    color: var(--color-text-dark);
+    margin-bottom: 12px;
+}
+
+.projects-header p {
+    color: var(--color-text-muted);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.project-card {
+    background-color: var(--color-bg-card); /* Tarjeta Blanca */
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.015);
+    transition: transform 0.3s ease, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.project-img-container {
+    height: 250px;
+    overflow: hidden;
+}
+
+.project-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img-container img {
+    transform: scale(1.04);
+}
+
+.project-content-box {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.project-content-box h3 {
+    font-family: var(--font-headings);
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.project-content-box p {
+    font-size: 14.5px;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    line-height: 1.65;
+}
+
+.view-project-link {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-azul-principal); /* Links en azul corporativo */
+    margin-top: auto;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.view-project-link:hover {
+    color: var(--color-verde-alvar);
+}
+
+.projects-footer {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.btn-view-all {
+    display: inline-block;
+    padding: 15px 38px;
+    border: 1px solid var(--color-text-dark);
+    background-color: transparent;
+    color: var(--color-text-dark);
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-view-all:hover {
+    background-color: var(--color-text-dark);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   9. PIE DE PÁGINA CLARO (FOOTER ESTILIZADO)
+   ========================================================================== */
+.site-footer {
+    background-color: #ffffff; /* Footer integrado en blanco puro */
+    padding: 80px 6% 40px 6%;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.footer-logo {
+    font-family: var(--font-headings);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+}
+
+.footer-logo span {
+    font-size: 13px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--color-text-muted);
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-link-underline {
+    font-size: 16px;
+    color: var(--color-text-dark);
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding-bottom: 2px;
+    display: inline-block;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.footer-link-underline:hover {
+    color: var(--color-azul-principal);
+    border-color: var(--color-azul-principal);
+}
+
+.footer-phone {
+    font-size: 14.5px;
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-end;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-nav a {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.3s;
+}
+
+.footer-nav a:hover {
+    color: var(--color-text-dark);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-socials a {
+    width: 42px;
+    height: 42px;
+    background-color: #f5f2eb;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-muted);
+    transition: color 0.3s, background-color 0.3s, transform 0.2s;
+}
+
+.footer-socials a svg {
+    width: 17px;
+    height: 17px;
+}
+
+.footer-socials a:hover {
+    background-color: var(--color-azul-principal);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   10. CONTROL RESPONSIVO COMPLETO
+   ========================================================================== */
+@media (max-width: 992px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-content h1 { font-size: 48px; }
+    .concept-content { grid-template-columns: 1fr; gap: 40px; }
+    .services { grid-template-columns: 1fr; padding: 80px 6% 40px 6%; }
+    .footer-right { align-items: flex-start; }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 20px 4%; }
+    .nav-links, .nav-cta { display: none; } /* Oculta menú en móviles */
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 36px; }
+    .concept-left h2 { font-size: 30px; }
+    .footer-nav { flex-direction: column; gap: 15px; }
+    .reveal-img { height: 350px; }
+    .service-card { padding: 40px 30px; }
+}
+/* ==========================================================================
+   11. DISEÑO EXCLUSIVO: MAQUETACIÓN DE CONTACTO PREMIUM (MODO CLARO)
+   ========================================================================== */
+.contact-main-wrapper {
+    padding: 160px 6% 100px 6%;
+    width: 100%;
+}
+
+.contact-grid-clean {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr; /* Divide la pantalla de forma equilibrada */
+    gap: 80px;
+    align-items: start;
+}
+
+/* Columna Izquierda: Información de la Empresa */
+.contact-info-column h2 {
+    font-family: var(--font-headings);
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.contact-lead-text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+}
+
+.info-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-detail-card {
+    display: flex;
+    gap: 15px;
+    align-items: start;
+}
+
+.detail-icon {
+    font-size: 18px;
+    color: var(--color-text-dark);
+    margin-top: 2px;
+}
+
+.detail-text h4 {
+    font-family: var(--font-headings);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 4px;
+}
+
+.detail-text a, .detail-text p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.detail-text a:hover {
+    color: var(--color-azul-principal);
+    text-decoration: underline;
+}
+
+/* Columna Derecha: Tarjeta Blanca Flotante del Formulario */
+.form-white-card {
+    background-color: var(--color-bg-card) !important; /* Blanco puro */
+    border-radius: 12px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03); /* Sombra suave idéntica al ejemplo */
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.form-white-card h3 {
+    font-family: var(--font-headings);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 12px;
+}
+
+.form-instruction {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: 35px;
+}
+
+/* Estructuración de los Inputs */
+.form-inputs-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-group-clean {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group-clean label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.input-group-clean input, 
+.input-group-clean textarea {
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-text-dark);
+    outline: none;
+    background-color: #ffffff;
+    transition: border-color 0.3s;
+}
+
+.input-group-clean input:focus, 
+.input-group-clean textarea:focus {
+    border-color: var(--color-azul-principal); /* Borde azul de marca al seleccionar */
+}
+
+/* Checkbox de Privacidad */
+.privacy-checkbox-wrapper {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin: 25px 0 35px 0;
+}
+
+.privacy-checkbox-wrapper input {
+    margin-top: 3px;
+}
+
+.privacy-checkbox-wrapper label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.privacy-checkbox-wrapper label a {
+    color: var(--color-text-dark);
+    text-decoration: underline;
+}
+
+/* Botón de Enviar Mensaje Premium */
+.btn-send-message {
+    background-color: var(--color-text-dark) !important; /* Fondo negro como la demo */
+    color: #ffffff !important;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-send-message:hover {
+    opacity: 0.9;
+}
+
+/* Control Responsivo de la Grilla */
+@media (max-width: 992px) {
+    .contact-grid-clean { grid-template-columns: 1fr; gap: 50px; }
+    .form-inputs-row { grid-template-columns: 1fr; gap: 20px; }
+    .form-white-card { padding: 30px 20px; }
+}
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.logo-img {
+    height: 65px;  
+    width: auto;  
+    display: block;
+    object-fit: contain;
+    mix-blend-mode: multiply; /* ¡Este truco elimina el recuadro blanco! */
+}
+/* ==========================================================================
+   10. CONTROL RESPONSIVO & MENÚ HAMBURGUESA MÓVIL
+   ========================================================================== */
+
+/* Inicialmente ocultamos el botón de tres rayas en pantallas de escritorio */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1100;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 2px;
+    background-color: var(--color-text-dark);
+    transition: all 0.3s ease;
+}
+/* ==========================================================================
+   10. CONTROL RESPONSIVO & MENÚ HAMBURGUESA MÓVIL
+   ========================================================================== */
+
+/* 1. CONFIGURACIÓN INICIAL (Aplica para PC y Escritorio) */
+/* ==========================================================================
+   10. CONTROL RESPONSIVO GENERAL (Escritorio, Tablets y Computadoras)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-content h1 { font-size: 48px; }
+    .concept-content { grid-template-columns: 1fr; gap: 40px; }
+    .services { grid-template-columns: 1fr; padding: 80px 6% 40px 6%; }
+    .footer-right { align-items: flex-start; }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 20px 4%; }
+    .nav-links, .nav-cta { display: none; } /* Oculta menú horizontal en móviles viejos */
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-content h1 { font-size: 36px; }
+    .concept-left h2 { font-size: 30px; }
+    .footer-nav { flex-direction: column; gap: 15px; }
+    .reveal-img { height: 350px; }
+    .service-card { padding: 40px 30px; }
+}
+
+/* ==========================================================================
+   11. MAQUETACIÓN RESPONSIVA DE CONTACTO
+   ========================================================================== */
+@media (max-width: 992px) {
+    .contact-grid-clean { grid-template-columns: 1fr; gap: 50px; }
+    .form-inputs-row { grid-template-columns: 1fr; gap: 20px; }
+    .form-white-card { padding: 30px 20px; }
+}
+
+/* ==========================================================================
+   12. SISTEMA INTERACTIVO: MENÚ HAMBURGUESA & SOBERANÍA MÓVIL
+   ========================================================================== */
+
+/* 1. Configuración del botón en PC (Oculto) */
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1100;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 2px;
+    background-color: var(--color-text-dark);
+    transition: all 0.3s ease;
+}
+
+/* 2. Activación exclusiva en pantallas móviles y tablets */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 20px 5%;
+    }
+
+    .menu-toggle {
+        display: flex; /* Aparece el botón de tres líneas */
+    }
+
+    .nav-cta {
+        display: none; /* Se oculta el botón de llamada para dar espacio */
+    }
+
+    /* Menú lateral desplegable */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 70%;   
+        height: 100vh;
+        background-color: #ffffff !important; 
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        display: flex !important; 
+        flex-direction: column !important;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 80px 10%;
+        gap: 35px;
+        transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        z-index: 1050;
+    }
+
+    .nav-links a {
+        font-size: 20px; 
+        font-weight: 500;
+        color: var(--color-text-dark) !important; 
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .nav-links.open {
+        right: 0 !important; /* Entra a la pantalla al hacer clic */
+    }
+
+    /* Animación de la hamburguesa a 'X' */
+    .menu-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.open .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ==========================================================================
+       ADAPTACIÓN EXCLUSIVA PARA QUIÉNES SOMOS (somos.html) EN MÓVILES
+       ========================================================================== */
+    .about-hero {
+        padding: 120px 6% 60px 6% !important; 
+    }
+    .about-hero h1 {
+        font-size: 32px !important; 
+    }
+    .stats-container {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    .stat-item .stat-number {
+        font-size: 38px !important; 
+    }
+    .manifesto-container.style-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    .manifesto-left h2 {
+        font-size: 28px !important; 
+    }
+    .concept-image-wrapper img {
+        height: 280px !important; 
+    }
+    .about-values {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 20px 6% 60px 6% !important;
+    }
+    .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+    .team-header h2 {
+        font-size: 30px !important;
+    }
+} /* <- ¡Esta llave cierra de forma correcta todo el entorno móvil de la sección 12! */
+
+/* Adaptación para la página de Proyectos en Celular */
+    .project-info-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    .project-hero-card {
+        height: 40vh !important;
+        padding: 20px !important;
+    }
+    .project-hero-card h3 {
+        font-size: 26px !important;
+    }
+    /* Adaptación para la grilla del catálogo de pedidos en celular */
+    .catalog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    /* Efecto hover para el cuadrito de zoom en el catálogo */
+.btn-zoom:hover {
+    transform: scale(1.1) !important;
+    background-color: #ffffff !important;
+}
